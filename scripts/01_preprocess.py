@@ -1,4 +1,13 @@
+import pandas as pd
+
 # Load the dataset
-# Identify and handle missing values (fill, drop, or impute)
-# Convert categorical values to a standardized format
-# Save the cleaned dataset to `outputs/cleaned_data.csv`
+df = pd.read_csv("../data/Impact_of_Mobile_Phone_on_Students_Health.csv")
+
+# Handling missing values by filling with mode
+df.fillna(df.mode().iloc[0], inplace=True)
+
+# Convert categorical values to a standardized format (e.g., lowercase)
+df = df.applymap(lambda x: x.strip().lower() if isinstance(x, str) else x)
+
+# Save cleaned dataset
+df.to_csv("../outputs/cleaned_data.csv", index=False)
